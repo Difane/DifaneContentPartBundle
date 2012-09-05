@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <parameters>
+        <parameter key="difane.contentpart.admin.class">Difane\Bundle\ContentPartBundle\Admin\ContentPartAdmin</parameter>
+        <parameter key="difane.contentpart.admin.entity">Difane\Bundle\ContentPartBundle\Entity\ContentPart</parameter>
+    </parameters>
+
+    <services>
+        <service id="difane.contentpart.admin" class="%difane.contentpart.admin.class%">
+            <tag name="sonata.admin" manager_type="orm" group="Content" label="ContentPart" />
+            <argument />
+            <argument>%difane.contentpart.admin.entity%</argument>
+            <argument />
+        </service>
+    </services>
+</container>

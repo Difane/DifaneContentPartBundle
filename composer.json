@@ -1,0 +1,28 @@
+{
+    "name": "difane/difane-contentpart-bundle",
+    "description": "Bundle that provides possibility to create content parts that can be injected in the any page and manage them in the admin interface.",
+    "type": "symfony-bundle",
+    "keywords": ["content"],
+    "homepage": "https://github.com/Difane/DifaneContentPartBundle",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Vyacheslav Enis",
+            "email": "venis@difane.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.2",
+        "symfony/symfony": "2.1.*",
+        "doctrine/orm": ">=2.2.3,<2.4-dev",
+        "doctrine/doctrine-bundle": "1.0.*",
+        "sonata-project/formatter-bundle": "dev-master"
+    },
+    "suggest": {
+        "sonata-project/doctrine-orm-admin-bundle": "Allows edit content parts in the admin area."
+    },
+    "autoload": {
+        "psr-0": { "Difane\\Bundle\\ContentPartBundle": "" }
+    },
+    "target-dir": "Difane/Bundle/ContentPartBundle"
+}
