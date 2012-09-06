@@ -33,13 +33,6 @@ class ContentPart
     private $title;
 
     /**
-     * @var string $content
-     *
-     * @ORM\Column(name="content", type="text")
-     */
-    private $content;
-
-    /**
      * @var string $rawContent
      *
      * @ORM\Column(name="rawContent", type="text")
@@ -61,6 +54,11 @@ class ContentPart
     private $name;
 
     /**
+     * @var \Sonata\FormatterBundle\Formatter\Pool $formatterPool
+     */
+    private $formatterPool;
+
+    /**
      * @ORM\PrePersist
      */
     public function handlePrePersist()
@@ -68,11 +66,6 @@ class ContentPart
         if(is_null($this->title))
         {
             $this->title = "";
-        }
-
-        if(is_null($this->content))
-        {
-            $this->content = "";
         }
 
         if(is_null($this->rawContent))
@@ -87,6 +80,31 @@ class ContentPart
     public function __toString()
     {
         return $this->getName();
+    }
+
+    public function setFormatterPool(\Sonata\FormatterBundle\Formatter\Pool $formatterPool)
+    {
+        $this->formatterPool = $formatterPool;
+    }
+
+    /**
+     * Get content
+     *
+     * @return string 
+     */
+    public function getContent()
+    {
+        if(is_null($this->contentFormatter))
+        {
+            throw new RuntimeException("ContentPart instance must have contentFormatter be set for getting transformed content");
+        }
+
+        if(is_null($this->formatterPool))
+        {
+            throw new RuntimeException("ContentPart instance must have formatterPool be set for getting transformed content");
+        }
+
+        return $this->formatterPool->transform($this->contentFormatter, $this->rawContent);
     }
 
     /**
@@ -120,29 +138,6 @@ class ContentPart
     public function getTitle()
     {
         return $this->title;
-    }
-
-    /**
-     * Set content
-     *
-     * @param string $content
-     * @return ContentPart
-     */
-    public function setContent($content)
-    {
-        $this->content = $content;
-    
-        return $this;
-    }
-
-    /**
-     * Get content
-     *
-     * @return string 
-     */
-    public function getContent()
-    {
-        return $this->content;
     }
 
     /**

@@ -36,11 +36,7 @@ class ContentPartAdmin extends Admin
                 ->add('title', null, array('required' => false))
             ->with('Content')
                 ->add('rawContent', 'textarea', array('required' => false, 'attr'=> array('rows' => 20)))
-                ->add('contentFormatter', 'sonata_formatter_type_selector', array(
-                    'source' => 'rawContent',
-                    'target' => 'content',
-                    'listener' => true
-                ))
+                ->add('contentFormatter', 'sonata_formatter_type_selector')
             ->end()
         ;
     }

@@ -12,16 +12,19 @@ use Doctrine\ORM\EntityRepository;
  */
 class ContentPartRepository extends EntityRepository
 {
-    public function getContentPart($name)
+    public function getContentPart($name, \Sonata\FormatterBundle\Formatter\Pool $formatterPool = null)
     {
         try
         {
-            return $this->getEntityManager()->createQuery('
+            $result = $this->getEntityManager()->createQuery('
                 SELECT t FROM DifaneContentPartBundle:ContentPart t                
                 WHERE t.name = :name
             ')
             ->setParameter('name', $name)
             ->getSingleResult();
+
+            $result->setFormatterPool($formatterPool);
+            return $result;
         }
         catch (\Doctrine\ORM\NoResultException $e)
         {
@@ -29,7 +32,7 @@ class ContentPartRepository extends EntityRepository
         }
     }
 
-    public function getContentParts(array $names)
+    public function getContentParts(array $names, \Sonata\FormatterBundle\Formatter\Pool $formatterPool = null)
     {
         try
         {
@@ -40,7 +43,14 @@ class ContentPartRepository extends EntityRepository
                 ->where($qb->expr()->in('cp.name', $names))
             ;
 
-            return $qb->getQuery()->getResult();            
+            $results = $qb->getQuery()->getResult();
+
+            foreach ($results as $result)
+            {
+                $result->setFormatterPool($formatterPool);
+            }
+
+            return $results;
         }
         catch (\Doctrine\ORM\NoResultException $e)
         {
