@@ -62,7 +62,7 @@ class ContentPart
      * @ORM\PrePersist
      */
     public function handlePrePersist()
-    {        
+    {
         if(is_null($this->title))
         {
             $this->title = "";
@@ -90,18 +90,18 @@ class ContentPart
     /**
      * Get content
      *
-     * @return string 
+     * @return string
      */
     public function getContent()
     {
         if(is_null($this->contentFormatter))
         {
-            throw new RuntimeException("ContentPart instance must have contentFormatter be set for getting transformed content");
+            throw new \RuntimeException("ContentPart instance must have contentFormatter be set for getting transformed content");
         }
 
         if(is_null($this->formatterPool))
         {
-            throw new RuntimeException("ContentPart instance must have formatterPool be set for getting transformed content");
+            throw new \RuntimeException("ContentPart instance must have formatterPool be set for getting transformed content");
         }
 
         return $this->formatterPool->transform($this->contentFormatter, $this->rawContent);
@@ -110,7 +110,7 @@ class ContentPart
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -133,7 +133,7 @@ class ContentPart
     /**
      * Get title
      *
-     * @return string 
+     * @return string
      */
     public function getTitle()
     {
@@ -156,7 +156,7 @@ class ContentPart
     /**
      * Get rawContent
      *
-     * @return string 
+     * @return string
      */
     public function getRawContent()
     {
@@ -179,7 +179,7 @@ class ContentPart
     /**
      * Get contentFormatter
      *
-     * @return string 
+     * @return string
      */
     public function getContentFormatter()
     {
@@ -202,7 +202,7 @@ class ContentPart
     /**
      * Get name
      *
-     * @return string 
+     * @return string
      */
     public function getName()
     {
