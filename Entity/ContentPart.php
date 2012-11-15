@@ -57,6 +57,14 @@ class ContentPart
      * @var \Sonata\FormatterBundle\Formatter\Pool $formatterPool
      */
     private $formatterPool;
+    
+    public function __construct($name, $title, $formatter, $rawContent)
+    {
+        $this->name = $name;
+        $this->title = $title;
+        $this->contentFormatter = $formatter;
+        $this->rawContent = $rawContent;
+    }
 
     /**
      * @ORM\PrePersist
